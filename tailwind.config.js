@@ -1,0 +1,200 @@
+/** @type {import("@types/tailwindcss/tailwind-config").TailwindConfig } */
+module.exports = {
+  darkMode: ['class'],
+  content: ['./pages/**/*.{ts,tsx}', './components/**/*.{ts,tsx}', './app/**/*.{ts,tsx}', './src/**/*.{ts,tsx}'],
+  prefix: '',
+  theme: {
+    container: {
+      center: true,
+      padding: '2rem',
+      screens: {
+        '2xl': '1400px',
+      },
+    },
+    extend: {
+      screens: {
+        '3xl': '1920px',
+      },
+      fontSize: {
+        //desktop
+        h0: ['84px', '95px'],
+        'h1-desktop': ['72px', 'normal'],
+        'h2-desktop': ['60px', 'normal'],
+        'h3-desktop': ['48px', 'normal'],
+        'h4-desktop': ['36px', 'normal'],
+        'h5-desktop': ['30px', 'normal'],
+        'h6-desktop': ['24px', 'normal'],
+        'body-desktop-regular': ['16px', '26.4px'],
+        'body-desktop-large': ['20px', '27px'],
+        'medium-desktop': ['18px', '27px'],
+        'lead-desktop': ['20px', '27px'],
+        'small-desktop-medium': ['12px', '12px'],
+        'subtle-desktop': ['14px', '23.1px'],
+        'detail-desktop': ['12px', '12px'],
+        'button-desktop': ['18px', 'normal'],
+        'button-small-desktop': ['14px', 'normal'],
+
+        //mobile
+        'h1-mobile': ['48px', '48px'],
+        'h2-mobile': ['36px', '39.6px'],
+        'h3-mobile': ['30px', '37.5px'],
+        'h4-mobile': ['24px', '31.9px'],
+        'h5-mobile': ['20px', '26.6px'],
+        'h6-mobile': ['18px', '25.2px'],
+        'body-mobile-regular': ['14px', '23.1px'],
+        'body-mobile-large': ['18px', '27px'],
+        'body-mobile-bold': ['16px', '26.4px'],
+        'medium-mobile': ['16px', '26.4px'],
+        'lead-mobile': ['18px', '27px'],
+        'small-mobile-medium': ['10px', '10px'],
+        'subtle-mobile': ['12px', '21px'],
+        'detail-mobile': ['10px', 'normal'],
+        'button-small-mobile': ['12px', 'normal'],
+      },
+      colors: {
+        border: 'hsl(var(--border))',
+        input: 'hsl(var(--input))',
+        ring: 'hsl(var(--ring))',
+        background: 'hsl(var(--background))',
+        foreground: 'hsl(var(--foreground))',
+        grey: {
+          100: '#F8F9FA',
+          200: '#EDF0F3',
+          300: '#D5DDE5',
+          400: '#CCD4DB',
+          500: '#AEBECD',
+          600: '#929FB1',
+          700: '#929FB1',
+          800: '#404B5A',
+          900: '#212934',
+        },
+        primary: {
+          100: '#EBF5FF',
+          200: '#AAD2F5',
+          300: '#82B4E0',
+          400: '#669CCC',
+          500: '#5FA0D7',
+          600: '#2D82C8',
+          700: '#2364A0',
+          800: '#19466E',
+          900: '#1E3C50',
+        },
+        placeholderColor: '#6E7A8A',
+        secondary: {
+          DEFAULT: 'hsl(var(--secondary))',
+          foreground: 'hsl(var(--secondary-foreground))',
+        },
+        destructive: {
+          DEFAULT: 'hsl(var(--destructive))',
+          foreground: 'hsl(var(--destructive-foreground))',
+        },
+        muted: {
+          DEFAULT: 'hsl(var(--muted))',
+          foreground: 'hsl(var(--muted-foreground))',
+        },
+        accent: {
+          DEFAULT: 'hsl(var(--accent))',
+          foreground: 'hsl(var(--accent-foreground))',
+          green: {
+            100: '#E6FFFA',
+            200: '#A5EBEB',
+            500: '#6ED7D2',
+            600: '#3CAAA0',
+            700: '#289187',
+            800: '#19645A',
+          },
+          red: {
+            100: '#FAE6E6',
+            200: '#F5AAAA',
+            500: '#E16464',
+            600: '#DC2D2D',
+            700: '#B41E1E',
+            800: '#871919',
+            900: '#5F1414',
+          },
+          yellow: {
+            100: '#FFFAF0',
+            200: '#FAF0D7',
+            500: '#FAE19B',
+            600: '#F0C864',
+            700: '#C8A53C',
+            800: '#8C691E',
+            900: '#5A460F',
+          },
+        },
+        popover: {
+          DEFAULT: 'hsl(var(--popover))',
+          foreground: 'hsl(var(--popover-foreground))',
+        },
+        card: {
+          DEFAULT: 'hsl(var(--card))',
+          foreground: 'hsl(var(--card-foreground))',
+        },
+      },
+      borderRadius: {
+        lg: 'var(--radius)',
+        md: 'calc(var(--radius) - 2px)',
+        sm: 'calc(var(--radius) - 4px)',
+      },
+      keyframes: {
+        'accordion-down': {
+          from: { height: '0' },
+          to: { height: 'var(--radix-accordion-content-height)' },
+        },
+        'accordion-up': {
+          from: { height: 'var(--radix-accordion-content-height)' },
+          to: { height: '0' },
+        },
+        flicker: {
+          '0%, 19.999%, 22%, 62.999%, 64%, 64.999%, 70%, 100%': {
+            opacity: 0.99,
+            filter:
+              'drop-shadow(0 0 1px rgba(252, 211, 77)) drop-shadow(0 0 15px rgba(245, 158, 11)) drop-shadow(0 0 1px rgba(252, 211, 77))',
+          },
+          '20%, 21.999%, 63%, 63.999%, 65%, 69.999%': {
+            opacity: 0.4,
+            filter: 'none',
+          },
+        },
+        shimmer: {
+          '0%': {
+            backgroundPosition: '-700px 0',
+          },
+          '100%': {
+            backgroundPosition: '700px 0',
+          },
+        },
+      },
+      fontFamily: {
+        body: ['Lato', 'sans-serif'],
+        poppins: ['Lato', 'sans-serif'],
+      },
+      animation: {
+        flicker: 'flicker 3s linear infinite',
+        shimmer: 'shimmer 1.3s linear infinite',
+        'accordion-down': 'accordion-down 0.2s ease-out',
+        'accordion-up': 'accordion-up 0.2s ease-out',
+      },
+      spacing: {
+        0: '0px',
+        1: '2px',
+        2: '4px',
+        3: '8px',
+        4: '12px',
+        5: '20px',
+        6: '32px',
+        7: '52px',
+        8: '84px',
+        9: '136px',
+        10: '220px',
+      },
+    },
+  },
+  plugins: [
+    require('@tailwindcss/typography'),
+    require('@tailwindcss/forms'),
+    require('@tailwindcss/line-clamp'),
+    require('@tailwindcss/aspect-ratio'),
+    require('tailwindcss-animate'),
+  ],
+}

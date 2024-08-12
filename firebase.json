@@ -1,0 +1,19 @@
+{
+  "hosting": [
+    {
+      "target": "development",
+      "public": "out",
+      "ignore": [
+        "**/.*",
+        "**/node_modules/**"
+      ],
+      "cleanUrls": true,
+      "rewrites": [
+        {
+          "source": "/examples/*",
+          "destination": "/examples/[xid].html"
+        }
+      ]
+    }
+  ]
+}

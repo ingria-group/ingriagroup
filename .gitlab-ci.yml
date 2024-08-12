@@ -1,0 +1,159 @@
+stages:
+  - pre_mr
+  - post_mr
+  - deploy
+
+pre_mr:code-quality:
+  stage: pre_mr
+  image: node:16-alpine
+  script:
+    - yarn install --frozen-lockfile --no-progress
+    - yarn audit
+    - yarn lint
+    - yarn format
+    - yarn typecheck
+  # Executed only on these condition
+  only:
+    - merge_requests
+  # Executed except on these condition
+  except:
+    changes:
+      - CHANGELOG.md
+  # Conditions for when jobs run
+  when: always
+  # Runner Executor
+  tags:
+    - web-fe
+
+post_mr:tagging:
+  stage: post_mr
+  image: dockerImage
+  variables:
+    # override git account with predefined gitlab variable
+    # GIT_AUTHOR_NAME: "${GITLAB_USER_NAME}"
+    # GIT_AUTHOR_EMAIL: "${GITLAB_USER_EMAIL}"
+    # GIT_COMMITTER_NAME: "${GITLAB_USER_NAME}"
+    # GIT_COMMITTER_EMAIL: "${GITLAB_USER_EMAIL}"
+  script:
+    - yarn install --frozen-lockfile --no-progress
+    - yarn semantic-release --no-ci --branches="${CI_MERGE_REQUEST_SOURCE_BRANCH_NAME}"
+  # Executed only on these condition
+  only:
+    - merge_requests
+  # Executed except on these condition
+  except:
+    changes:
+      - CHANGELOG.md
+  # Conditions for when jobs run
+  when: manual
+  # Runner Executor
+  tags:
+    - web-fe
+
+deploy:development:
+  stage: deploy
+  image: dockerImage
+  script:
+    # Create Env File
+    - cp $ENV_FILE .env
+    - echo "APP_BUILD_SIGNATURE=\"${CI_COMMIT_SHA}\"" >> .env
+    # Determine App Version
+    - LATEST_TAG=$(git describe --tags "$(git rev-list --tags --max-count=1)")
+    - export APP_VERSION="${LATEST_TAG:-v0.0.0}"
+    - echo "APP_VERSION=\"${APP_VERSION}\"" >> .env
+    # Install App
+    - yarn install --frozen-lockfile --no-progress
+    # Build App
+    - yarn build
+    # Export Static App
+    - yarn export
+    # Deploy to firebase
+    - firebase deploy --only hosting:development -m "${CI_COMMIT_SHA}"
+    # Get App URL
+    - export APP_URL=$(firebase hosting:channel:list --site $FIREBASE_SITE | grep -Eo "https?://${FIREBASE_SITE}[^ ]+" | head -1)
+    - echo "APP_URL=${APP_URL}" >> .env
+    - echo "APP_URL=${APP_URL}" >> build.env
+    - export DEPLOY_URL="${APP_URL}"
+    # Notify Project Channel
+    # - export ROCKETCHAT_CHANNEL="#chanel-name"
+    # - export ROCKETCHAT_MENTIONS=''
+    # - send-msg
+    # Notify Deploy Channel
+    # - export ROCKETCHAT_CHANNEL='#chanel-name'
+    # - export ROCKETCHAT_MENTIONS=''
+    # - send-msg
+  # Define artifacts
+  artifacts:
+    reports:
+      dotenv: build.env
+  # Define Environment
+  environment:
+    name: development
+    url: $APP_URL
+  # Executed only on these condition
+  only:
+    refs:
+      - develop
+  # Executor
+  tags:
+    - web-fe
+
+deploy:preview:
+  stage: deploy
+  image: dockerImage
+  script:
+    # Create Env File
+    - cp $ENV_FILE .env
+    - echo "APP_VERSION=\"${CI_COMMIT_SHORT_SHA}\"" >> .env
+    - echo "APP_BUILD_SIGNATURE=\"${CI_COMMIT_SHA}\"" >> .env
+    # Install App
+    - yarn install --frozen-lockfile --no-progress
+    # Build App
+    - yarn build
+    # Export Static App
+    - yarn export
+    # Deploy to firebase
+    - firebase hosting:channel:deploy --only development $CI_COMMIT_REF_SLUG
+    # Get App URL
+    - export APP_URL=$(firebase hosting:channel:list --site $FIREBASE_SITE | grep -Eo "https?://${FIREBASE_SITE}[^ ]+" | head -1)
+    - echo "APP_URL=${APP_URL}" >> .env
+    - echo "APP_URL=${APP_URL}" >> build.env
+  # Define artifacts
+  artifacts:
+    reports:
+      dotenv: build.env
+  # Define Environment
+  environment:
+    name: review/$CI_COMMIT_REF_SLUG
+    url: $APP_URL
+    on_stop: deploy:stop-review
+  # Executed only on these condition
+  only:
+    - merge_requests
+  # Executed except on these condition
+  except:
+    changes:
+      - CHANGELOG.md
+  # Conditions for when jobs run
+  when: always
+  # Runner Executor
+  tags:
+    - web-fe
+
+deploy:stop-review:
+  stage: deploy
+  image: dockerImage
+  script:
+    - firebase hosting:channel:delete --site $FIREBASE_SITE -f $CI_COMMIT_REF_SLUG
+  # Define Environment
+  environment:
+    name: review/$CI_COMMIT_REF_SLUG
+    action: stop
+  # Executed only on these condition
+  only:
+    - merge_requests
+  # Conditions for when jobs run
+  when: manual
+  # Runner Executor
+  tags:
+    - web-fe

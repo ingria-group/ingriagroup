@@ -1,0 +1,32 @@
+{
+  "lp_1": {
+    "title": "Find the perfect home to live with your family",
+    "description": "Achieve your dreams with the best subsidized and commercial housing in Indonesia",
+    "assets": [
+      "Land acquisition",
+      "Development planning",
+      "Design",
+      "Project management",
+      "Development supervision",
+      "Operation management"
+    ]
+  },
+  "lp_2": {
+    "title": "We have what you need",
+    "description": "We have houses distributed across Indonesia, varying in size and facilities.",
+    "assets": [
+      {
+        "value": "10",
+        "caption": "Business Field"
+      },
+      {
+        "value": "200+",
+        "caption": "Housing unit"
+      }
+    ]
+  },
+  "lp_3": {
+    "title": "Your trusted real estate agency.",
+    "description": "Ingria Pratama Capitalindo's journey began in 2013 by working in the construction sector, where the initial aim of establishing the Company at that time was to give the Company trust to work on Government projects, including Simple Flats. Furthermore, armed with experience as a company engaged in the construction sector, we started building the first housing in the Cimalaka area, Sumedang Regency in 2015. This housing development was based on the Company's desire to provide cheap housing but still prioritize quality, including the construction of carports, rows wider road."
+  }
+}
