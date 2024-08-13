@@ -53,6 +53,10 @@ const MyApp: React.FC<AppProps> = (props) => {
           name='viewport'
           content='initial-scale=1, width=device-width'
         />
+        <meta
+          property='og:title'
+          content='Ingria Group - Developer Rumah Subsidi dan Komersil Terpercaya'
+        />
       </Head>
       <Loading
         key={progress.loadingKey}
