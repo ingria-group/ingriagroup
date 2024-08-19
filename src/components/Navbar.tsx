@@ -110,40 +110,45 @@ const Navbar = () => {
             </svg>
           </button>
         </div>
-        <div className='flex cursor-pointer items-center'>
-          <Link href='/'>
-            <div className='relative size-5'>
-              <Image
-                src={'https://ingria.fly.dev/assets/' + dataNavbar?.logo}
-                alt='logo'
-                layout='fill'
-              />
-            </div>
-          </Link>
-        </div>
-        <div className='grid grid-cols-12 gap-4'>
-          <button
-            onClick={() => handleTranslationsInonesia()}
-            className='col-span-6 flex'
-          >
-            <img
-              src='/assets/image/IDN.svg'
-              alt='IDN'
-              width={20}
-            />{' '}
-            <span className='ml-3 text-subtle-desktop font-bold capitalize'>IDN</span>
-          </button>
-          <button
-            onClick={() => handleTranslationsEngland()}
-            className='col-span-6 flex'
-          >
-            <img
-              src='/assets/image/US.svg'
-              alt='US'
-              width={20}
-            />{' '}
-            <span className='ml-3 text-subtle-desktop font-bold capitalize'>ENG</span>
-          </button>
+        <div className='flex justify-between gap-[39px]'>
+          <div className='flex cursor-pointer items-center'>
+            <Link href='/'>
+              <div className='relative h-7 w-9'>
+                <Image
+                  src={'https://ingria.fly.dev/assets/' + dataNavbar?.logo}
+                  alt='logo'
+                  layout='fill'
+                  property='true'
+                  placeholder='empty'
+                />
+              </div>
+            </Link>
+          </div>
+          <div className='ml-6 grid grid-cols-5'>
+            <button
+              onClick={() => handleTranslationsEngland()}
+              className=' col-span-2 grid grid-flow-col items-center'
+            >
+              <img
+                src='/assets/image/US.svg'
+                alt='US'
+                width={20}
+              />{' '}
+              <span className='text-subtle-desktop font-bold capitalize'>ENG</span>
+            </button>
+            <div className='mx-auto grid grid-flow-col items-center text-gray-300'>|</div>
+            <button
+              onClick={() => handleTranslationsInonesia()}
+              className='col-span-2 grid grid-flow-col items-center'
+            >
+              <img
+                src='/assets/image/IDN.svg'
+                alt='IDN'
+                width={20}
+              />{' '}
+              <span className='text-subtle-desktop font-bold capitalize'>IDN</span>
+            </button>
+          </div>
         </div>
         <div className='hidden items-center gap-3 lg:flex'>
           {dataNavbar?.menu

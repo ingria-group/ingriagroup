@@ -1,6 +1,11 @@
 import React from 'react'
 
 import Blank from '@/layouts/Blank'
+import getAssets from '@/utils/getAssets'
+import VerticalCarousel from '@/components/Vertical Carousel'
+import useLanguage from '@/utils/useLanguage'
+import Image from 'next/image'
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel'
 
 interface PiagamDanPenghargaanTranslations {
   id: number
@@ -20,11 +25,35 @@ interface PiagamDanPenghargaanProps {
 }
 
 const PiagamDanPenghargaan: React.FC<PiagamDanPenghargaanProps> = ({ dataPiagam }) => {
-  console.log('ini data Piagam', dataPiagam)
+  const language = useLanguage()
+  // console.log('ini data Piagam', dataPiagam)
   return (
     <Blank title='Piagam Penghargaan'>
       <div className='h-screen w-full bg-primary-900'>
-        <div>Piagam dan Penghargaan</div>
+        <Carousel
+          opts={{
+            align: 'start',
+          }}
+          orientation='vertical'
+          className='w-full max-w-xs'
+        >
+          <CarouselContent>
+            {dataPiagam.map((data) => {
+              const dataTranslation = data.translations.find((i) => i.languages_code === language)
+              return (
+                <CarouselItem
+                  key={data.id}
+                  className='basis-full'
+                >
+                  <h3>{dataTranslation?.title}</h3>
+                  <p>{dataTranslation?.caption}</p>
+                </CarouselItem>
+              )
+            })}
+          </CarouselContent>
+          <CarouselPrevious />
+          <CarouselNext />
+        </Carousel>
       </div>
     </Blank>
   )

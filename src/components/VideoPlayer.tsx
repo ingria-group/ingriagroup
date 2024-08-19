@@ -1,7 +1,6 @@
 import { Play } from 'lucide-react'
 import Image from 'next/image'
-import React, { useState } from 'react'
-
+import React, { useState, useRef, useEffect } from 'react'
 import { DataVideoType } from '@/modules/home/WeHaveWhat'
 import Icons from '@/utils/Icons'
 import useLanguage from '@/utils/useLanguage'
@@ -11,24 +10,40 @@ interface VideoPlayerProps {
 }
 
 const VideoPlayer: React.FC<VideoPlayerProps> = ({ data }) => {
-  const [isPlaying, setIsPlaying] = useState(false)
+  const [isModalOpen, setIsModalOpen] = useState(false)
+  const videoRef = useRef<HTMLVideoElement>(null)
   const language = useLanguage()
   const dataTranslation = data.translations.find((i) => i.languages_code === language)
 
   const handlePlay = () => {
-    setIsPlaying(true)
+    setIsModalOpen(true)
   }
 
+  const handleCloseModal = () => {
+    setIsModalOpen(false)
+    if (videoRef.current) {
+      videoRef.current.pause()
+      videoRef.current.currentTime = 0
+    }
+  }
+
+  useEffect(() => {
+    if (isModalOpen && videoRef.current) {
+      videoRef.current.play()
+    }
+  }, [isModalOpen])
+
   return (
-    <div className='max-w-full'>
-      {!isPlaying && data.thumbnail ? (
+    <div className='relative max-w-full'>
+      {/* Thumbnail and overlay content */}
+      <div className='relative'>
         <div
           className='relative h-10 w-full cursor-pointer md:h-[700px]'
           onClick={handlePlay}
         >
           <Image
             src={'https://ingria.fly.dev/assets/' + data.thumbnail}
-            alt='thumbanil'
+            alt='thumbnail'
             className='w-full'
             layout='fill'
             objectFit='cover'
@@ -50,7 +65,7 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({ data }) => {
               <p className='text-subtle-mobile font-medium md:text-subtle-desktop'>{dataTranslation?.description}</p>
             </div>
           </div>
-          <div className='absolute  right-[5%] top-5 grid grid-rows-2 gap-2 md:right-[15%] md:top-[30%] md:gap-6'>
+          <div className='absolute right-[5%] top-5 grid grid-rows-2 gap-2 md:right-[15%] md:top-[30%] md:gap-6'>
             {data.content.map((i) => (
               <div
                 className='box-content rounded-xl bg-primary-600 p-2 text-white md:p-[24px]'
@@ -67,19 +82,33 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({ data }) => {
             ))}
           </div>
         </div>
-      ) : (
-        <>
-          <video
-            className='mx-auto w-full md:h-[700px] md:w-[1200px]'
-            autoPlay
-            controls
-          >
-            <source
-              src={'https://ingria.fly.dev/assets/' + data.video}
-              type='video/mp4'
-            />
-          </video>
-        </>
+      </div>
+
+      {/* Modal for video playback */}
+      {isModalOpen && (
+        <div className='fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-75'>
+          <div className='relative w-full max-w-4xl'>
+            <button
+              className='absolute right-4 top-4 text-2xl text-white'
+              onClick={handleCloseModal}
+            >
+              &times;
+            </button>
+            <video
+              ref={videoRef}
+              className='w-full'
+              loop
+              muted
+              playsInline
+              controls
+            >
+              <source
+                src={'https://ingria.fly.dev/assets/' + data.video}
+                type='video/mp4'
+              />
+            </video>
+          </div>
+        </div>
       )}
     </div>
   )

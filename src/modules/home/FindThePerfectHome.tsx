@@ -1,5 +1,5 @@
 import Image from 'next/image'
-import React from 'react'
+import React, { useState } from 'react'
 
 import TabCard from '@/components/TabCard'
 import getAssets from '@/utils/getAssets'
@@ -25,6 +25,8 @@ interface FindThePerfectHomeProps {
 const FindThePerfectHome: React.FC<FindThePerfectHomeProps> = ({ findPerfectData }) => {
   const language = useLanguage()
   const dataTranslation = findPerfectData.translations.find((i) => i.languages_code === language)
+  const [isHovered, setIsHovered] = useState(false)
+
   return (
     <div className='ml-4 box-content grid w-full grid-cols-1 gap-4 lg:ml-10 lg:grid-cols-7'>
       <div className='md:col-span-2'>
@@ -55,11 +57,13 @@ const FindThePerfectHome: React.FC<FindThePerfectHomeProps> = ({ findPerfectData
       <div className='grid md:col-span-5 md:mt-6 md:grid-rows-4'>
         <div className='row-span-2 md:row-span-5 md:row-start-1'>
           <Image
-            src={String(getAssets(findPerfectData?.activeImage))}
+            src={String(getAssets(isHovered ? findPerfectData?.hoverImage : findPerfectData?.activeImage))}
             width={1200}
             height={700}
             alt='gambar'
             className='object-contain'
+            onMouseEnter={() => setIsHovered(true)}
+            onMouseLeave={() => setIsHovered(false)}
           />
         </div>
       </div>

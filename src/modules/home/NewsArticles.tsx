@@ -1,4 +1,5 @@
 import { ExternalLink } from 'lucide-react'
+import Link from 'next/link'
 import React from 'react'
 
 import { Button } from '@/components/ui/button'
@@ -10,7 +11,7 @@ export interface NewsArticlesTranslations {
   languages_code: string
   button_title: string
   title: string
-  item_new_articles: { id: string; title: string; description: string }[]
+  item_new_articles: { id: string; title: string; description: string; path: string }[]
 }
 
 export interface NewsArticlesType {
@@ -35,29 +36,33 @@ const NewsArticles: React.FC<NewsArticlesProps> = ({ dataNewArticles }) => {
             size='lg'
             variant='secondary'
           >
-            <div className='text-button-mobile font-semibold md:text-button-desktop'>
-              <div className='flex flex-row gap-3'>
-                {dataTranslation?.button_title}
-                <ExternalLink />
+            <Link href={dataNewArticles.path}>
+              <div className='text-button-mobile font-semibold md:text-button-desktop'>
+                <div className='flex flex-row gap-3'>
+                  {dataTranslation?.button_title}
+                  <ExternalLink />
+                </div>
               </div>
-            </div>
+            </Link>
           </Button>
         </div>
         {dataTranslation?.item_new_articles.map((i) => (
-          <div
+          <Link
+            href={i.path}
             key={i.id}
-            className='grid grid-flow-row'
           >
-            <div className='mb-5 line-clamp-3 text-h4-mobile font-semibold md:text-h4-desktop'>{i.title}</div>
-            <div className='text-body-mobile md:text-body-desktop mb-5 line-clamp-3'>{i.description}</div>
-            <Button
-              variant='tertiary'
-              size='lg'
-              className='justify-start p-0'
-            >
-              Learn More
-            </Button>
-          </div>
+            <div className='grid cursor-pointer grid-flow-row'>
+              <div className='mb-5 line-clamp-3 text-h4-mobile font-semibold md:text-h4-desktop'>{i.title}</div>
+              <div className='text-body-mobile md:text-body-desktop mb-5 line-clamp-3'>{i.description}</div>
+              <Button
+                variant='tertiary'
+                size='lg'
+                className='justify-start p-0'
+              >
+                Learn More
+              </Button>
+            </div>
+          </Link>
         ))}
       </div>
     </div>
