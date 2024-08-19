@@ -24,14 +24,14 @@ const PendirianPerseroan: React.FC<PendirianPerseroanProps> = ({ pendirianPerser
               <div className='bg-grey-900 px-4 py-8 md:px-9 md:py-[171px]'>
                 <div className='container m-auto box-content flex flex-col gap-4 md:gap-6'>
                   <div className=' text-white'>
+                    <h6 className='text-h3-desktop font-bold'>
+                      {v.translations.find((i) => i.languages_code === language)?.year}
+                    </h6>
                     <h4 className='text-h4-desktop font-semibold'>
                       {v.translations.find((i) => i.languages_code === language)?.title}
                     </h4>
-                    <h6 className='text-h6-desktop font-bold'>
-                      {v.translations.find((i) => i.languages_code === language)?.year}
-                    </h6>
                   </div>
-                  <div className='text-body-desktop-regular'>
+                  <div className='text-body-desktop-regular text-grey-400'>
                     {v.translations.find((i) => i.languages_code === language)?.description}
                   </div>
                 </div>

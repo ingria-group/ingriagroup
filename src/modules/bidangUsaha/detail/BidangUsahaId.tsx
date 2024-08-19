@@ -44,7 +44,7 @@ const BidangUsahaId: React.FC<BidangUsahaIdProps> = ({ bidangUsaha }) => {
       <div className='container mx-auto'>
         <div className='mb-9'>
           <div
-            className='relative mb-4 box-content px-4 py-5 sm:mb-8 sm:px-9 sm:py-8'
+            className='relative mb-4 box-content  px-4 py-5 sm:mb-8 sm:px-9 sm:py-8'
             style={{
               backgroundImage: `url(${String(getAssets(selectData.background))})`,
               backgroundSize: 'cover',
@@ -136,7 +136,7 @@ const BidangUsahaId: React.FC<BidangUsahaIdProps> = ({ bidangUsaha }) => {
         </div>
         <div className='py-8'>
           <div className='mb-7 text-center text-h4-desktop font-semibold text-grey-800'>Lihat Juga</div>
-          <CarouselC itemClass='md:basis-1/3 lg:basis-1/4'>
+          <CarouselC itemClass='md:basis-1/3 lg:basis-1/4 cursor-pointer'>
             {bidangUsaha.map((i) => (
               <div
                 key={i.id}
