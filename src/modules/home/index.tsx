@@ -1,6 +1,7 @@
 import { NextPage } from 'next'
 import React from 'react'
 
+import { BidangUsahaType } from '@/interface/BidangUsahaType'
 import Blank from '@/layouts/Blank'
 
 import FindThePerfectHome, { DataFindType } from './FindThePerfectHome'
@@ -17,6 +18,7 @@ export interface HomeProps {
   dataOurBusiness: OurBusinessType
   dataYouTrustedReal: YouTrustedRealType
   dataNewMahakam: NewMahakamGrandeType[]
+  dataBidangUsaha: BidangUsahaType[]
 }
 
 const Page: NextPage<HomeProps> = ({
@@ -26,6 +28,7 @@ const Page: NextPage<HomeProps> = ({
   dataOurBusiness,
   dataYouTrustedReal,
   dataNewMahakam,
+  dataBidangUsaha,
 }) => {
   return (
     <Blank
@@ -35,7 +38,10 @@ const Page: NextPage<HomeProps> = ({
       <FindThePerfectHome findPerfectData={findPerfectData} />
       <WeHaveWhat dataVideo={dataVideo} />
       <YouTrustedReal dataYouTrustedReal={dataYouTrustedReal} />
-      <NewMahakamGrande dataNewMahakam={dataNewMahakam} />
+      <NewMahakamGrande
+        dataNewMahakam={dataNewMahakam}
+        dataBidangUsaha={dataBidangUsaha}
+      />
       <OurBusiness dataOurBusiness={dataOurBusiness} />
       <NewsArticles dataNewArticles={dataNewArticles} />
     </Blank>

@@ -1,6 +1,7 @@
 import { GetServerSideProps, InferGetServerSidePropsType } from 'next'
 import React from 'react'
 
+import { BidangUsahaType } from '@/interface/BidangUsahaType'
 import Page from '@/modules/home'
 import { DataFindType } from '@/modules/home/FindThePerfectHome'
 import { NewMahakamGrandeType } from '@/modules/home/NewMahakamGrande'
@@ -23,6 +24,7 @@ export const getServerSideProps: GetServerSideProps<{
   dataOurBusiness: ApiResponse<OurBusinessType>
   dataYouTrustedReal: ApiResponse<YouTrustedRealType>
   dataNewMahakam: ApiResponse<NewMahakamGrandeType[]>
+  dataBidangUsaha: ApiResponse<BidangUsahaType[]>
 }> = async () => {
   const urls = [
     baseUrl + 'mainhero?fields[]=*,translations.*',
@@ -31,12 +33,30 @@ export const getServerSideProps: GetServerSideProps<{
     baseUrl + 'our_business?fields[]=*,translations.*&fields[]=*,logo.*',
     baseUrl + 'real_estate?fields[]=*,translations.*',
     baseUrl + 'new_mahakam?fields[]=*,translations.*',
+    baseUrl + 'bidang_usaha_data?fields[]=*,translations.*',
   ]
 
-  const [findPerfectData, dataVideo, dataNewArticles, dataOurBusiness, dataYouTrustedReal, dataNewMahakam] =
-    await Promise.all(urls.map((url) => fetch(url).then((res) => res.json())))
+  const [
+    findPerfectData,
+    dataVideo,
+    dataNewArticles,
+    dataOurBusiness,
+    dataYouTrustedReal,
+    dataNewMahakam,
+    dataBidangUsaha,
+  ] = await Promise.all(urls.map((url) => fetch(url).then((res) => res.json())))
 
-  return { props: { findPerfectData, dataVideo, dataNewArticles, dataOurBusiness, dataYouTrustedReal, dataNewMahakam } }
+  return {
+    props: {
+      findPerfectData,
+      dataVideo,
+      dataNewArticles,
+      dataOurBusiness,
+      dataYouTrustedReal,
+      dataNewMahakam,
+      dataBidangUsaha,
+    },
+  }
 }
 
 const Home = ({
@@ -46,6 +66,7 @@ const Home = ({
   dataOurBusiness,
   dataYouTrustedReal,
   dataNewMahakam,
+  dataBidangUsaha,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   return (
     <Page
@@ -55,6 +76,7 @@ const Home = ({
       dataOurBusiness={dataOurBusiness.data}
       dataYouTrustedReal={dataYouTrustedReal.data}
       dataNewMahakam={dataNewMahakam.data}
+      dataBidangUsaha={dataBidangUsaha.data}
     />
   )
 }
