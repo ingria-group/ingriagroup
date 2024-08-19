@@ -30,7 +30,7 @@ const Page: NextPage<HomeProps> = ({
   return (
     <Blank
       title='Home'
-      description='Ingria Group adalah developer rumah subsidi & komersil terpercaya. Berlokasi di banyak kawasan strategis, kami siap menjawab kebutuhan hunian murah berkualitas Anda.'
+      description='Ingria Group adalah developer rumah subsidi & komersil terpercaya. Berlokasi di banyak kawasan strategis, kami siap menjawab kebutuhan hunian terjangkau berkualitas Anda.'
     >
       <FindThePerfectHome findPerfectData={findPerfectData} />
       <WeHaveWhat dataVideo={dataVideo} />
