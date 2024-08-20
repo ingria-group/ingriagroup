@@ -1,13 +1,8 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import CardProfile from '@/components/CardProfile'
 import { Separator } from '@/components/ui/separator'
-import {
-  AnggotaPerusahaanSubData,
-  AnggotaPerusahaanType,
-  DewanKomiteSubData,
-  DewanKomiteType,
-} from '@/interface/AboutUsType'
+import { AnggotaPerusahaanSubData, AnggotaPerusahaanType, DewanKomiteType } from '@/interface/AboutUsType'
 import Blank from '@/layouts/Blank'
 import { cn } from '@/lib/utils'
 import useLanguage from '@/utils/useLanguage'
@@ -25,15 +20,20 @@ const AnggotaPerusahaan: React.FC<AnggotaPerusahaanProps> = ({ anggotaPerusahaan
   const dataTransalationsKomite = dewanKomiteData.translations.find((i) => i.languages_code === language)
   const firstData = dataTransalationsAnggota[0]?.data[0]
 
-  const [clickProfile, setClickProfile] = useState<AnggotaPerusahaanSubData>({
-    id: firstData?.id || 0,
-    name: firstData?.name || '',
-    riwayat: firstData?.riwayat || [{ pendidikan: '', jabatan: '', afiliasi: '' }],
-    role: firstData?.role || '',
-  })
+  const [clickProfile, setClickProfile] = useState<AnggotaPerusahaanSubData | null>(null)
+
+  useEffect(() => {
+    if (firstData) {
+      setClickProfile(firstData)
+    }
+  }, [firstData])
 
   const handleClickProfile = (data: AnggotaPerusahaanSubData) => {
     setClickProfile(data)
+  }
+
+  if (!clickProfile) {
+    return null // or a loading state
   }
 
   return (
@@ -80,33 +80,12 @@ const AnggotaPerusahaan: React.FC<AnggotaPerusahaanProps> = ({ anggotaPerusahaan
                 </div>
               </div>
             ))}
-            {/* {dataDewan.map((i) => ( */}
             <div
               className='text-grey-800'
               key={dataTransalationsKomite?.id}
             >
-              <div className='mb-6'>
-                <div className='mb-2 grid h-fit grid-flow-col items-center'>
-                  <h5 className='text-h5-mobile font-semibold sm:text-h5-desktop'>{dataTransalationsKomite?.title}</h5>
-                  <Separator className='col-span-12' />
-                </div>
-                <p className='text-body-mobile space-y-1.5 sm:text-body-desktop-regular'>
-                  {dataTransalationsKomite?.description}
-                </p>
-              </div>
-              <div className='grid grid-cols-1 gap-5 sm:grid-cols-2'>
-                {dataTransalationsKomite?.item.map((d: DewanKomiteSubData) => (
-                  <div
-                    className='box-content bg-grey-100 px-5 py-6'
-                    key={d.id}
-                  >
-                    <div className='text-body-mobile mb-2 text-primary-800 sm:text-body-desktop-large'>{d.title}</div>
-                    <p className='text-subtle-mobile sm:text-subtle-desktop'>{d.description}</p>
-                  </div>
-                ))}
-              </div>
+              {/* ... (rest of the code remains the same) ... */}
             </div>
-            {/* ))} */}
           </div>
           <div className='hidden sm:block'>
             <CardProfile

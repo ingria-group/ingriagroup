@@ -11,69 +11,6 @@ interface FooterData {
   tab: { id: number; title: string; path: string }[]
 }
 
-const data = {
-  title: 'PT Ingria Pratama Capitalindo Tbk',
-  address: 'Ruko Pondok Cabe Mutiara Blok C No. 27',
-  tab: [
-    {
-      id: 1,
-      title: 'Home',
-      path: '/',
-    },
-    {
-      id: 2,
-      title: 'About Us',
-      path: '/about-us',
-    },
-    {
-      id: 3,
-      title: 'Business Field',
-      path: '/',
-    },
-    {
-      id: 4,
-      title: 'Investor Relation',
-      path: '/',
-    },
-    {
-      id: 5,
-      title: 'Community Service',
-      path: '/',
-    },
-  ],
-  tabRight: [
-    {
-      id: 6,
-      title: 'Media',
-      path: '/',
-    },
-    {
-      id: 7,
-      title: 'Career',
-      path: '/',
-    },
-    {
-      id: 8,
-      title: 'Contact',
-      path: '/',
-    },
-  ],
-  copyRight: [
-    {
-      id: 1,
-      description: 'Copyright © 2024 Ingria Pratama',
-    },
-    {
-      id: 2,
-      description: 'Capitalindo | Ingria Pratama',
-    },
-    {
-      id: 3,
-      description: 'Capitalindo tbk',
-    },
-  ],
-}
-
 const Footer = () => {
   const [footerData, setFooterData] = useState<FooterData>()
 
@@ -93,8 +30,6 @@ const Footer = () => {
 
     fetchFooterData()
   }, [])
-
-  console.log(footerData)
 
   return (
     <div className='bg-primary-900 py-4 text-white sm:py-8'>
