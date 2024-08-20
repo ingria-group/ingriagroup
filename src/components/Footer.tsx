@@ -1,5 +1,15 @@
 import { Mail, MapPin, MessageSquare, Phone, Printer } from 'lucide-react'
-import React from 'react'
+import Link from 'next/link'
+import React, { useEffect, useState } from 'react'
+
+interface FooterData {
+  id: number
+  title: string
+  address: string
+  copyRight: { id: number; description: string }[]
+  tabRight: { id: number; title: string; path: string }[]
+  tab: { id: number; title: string; path: string }[]
+}
 
 const data = {
   title: 'PT Ingria Pratama Capitalindo Tbk',
@@ -8,7 +18,7 @@ const data = {
     {
       id: 1,
       title: 'Home',
-      path: '/home',
+      path: '/',
     },
     {
       id: 2,
@@ -65,39 +75,60 @@ const data = {
 }
 
 const Footer = () => {
+  const [footerData, setFooterData] = useState<FooterData>()
+
+  useEffect(() => {
+    const fetchFooterData = async () => {
+      try {
+        const response = await fetch('/api/footerApi')
+        if (!response.ok) {
+          throw new Error('Failde to fetch footer data')
+        }
+        const { data } = await response.json()
+        setFooterData(data.data[0])
+      } catch (err) {
+        console.error(err)
+      }
+    }
+
+    fetchFooterData()
+  }, [])
+
+  console.log(footerData)
+
   return (
     <div className='bg-primary-900 py-4 text-white sm:py-8'>
       <div className='container mx-auto px-4 sm:px-0'>
         <div className='grid grid-cols-1 gap-5 sm:grid-cols-3 sm:gap-9 sm:text-start'>
           <div className='flex flex-col gap-6'>
-            <div className='text-h3-desktop font-semibold'>{data.title}</div>
-            <div className='text-body-desktop-large sm:text-start'>{data.address}</div>
+            <div className='text-h3-desktop font-semibold'>{footerData?.title}</div>
+            <div className='text-body-desktop-large sm:text-start'>{footerData?.address}</div>
           </div>
           <div className='grid grid-cols-2 gap-2'>
             <div className='flex flex-col gap-4'>
-              {data.tab.map((i) => (
-                <div
+              {footerData?.tab.map((i) => (
+                <Link
                   key={i.id}
-                  className='py-4 pr-5'
+                  href={i.path}
                 >
-                  {i.title}
-                </div>
+                  <div className='py-4 pr-5'>{i.title}</div>
+                </Link>
               ))}
             </div>
             <div className='flex flex-col gap-4'>
-              {data.tabRight.map((i) => (
-                <div
+              {footerData?.tabRight.map((i) => (
+                <Link
                   key={i.id}
-                  className='py-4 pr-5'
+                  href={i.path}
                 >
-                  {i.title}
-                </div>
+                  <div className='py-4 pr-5'>{i.title}</div>
+                </Link>
               ))}
             </div>
           </div>
           <div className='flex flex-col gap-7'>
             <div>
-              {data.copyRight.map((i) => (
+              {footerData?.copyRight.map((i) => (
                 <div
                   className='text-body-desktop-large'
                   key={i.id}
