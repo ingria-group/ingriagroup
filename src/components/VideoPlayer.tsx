@@ -1,6 +1,6 @@
-import { Play } from 'lucide-react'
-import Image from 'next/image'
-import React, { useState, useRef, useEffect } from 'react'
+import { Play, Pause } from 'lucide-react'
+import React, { useEffect, useRef, useState } from 'react'
+
 import { DataVideoType } from '@/modules/home/WeHaveWhat'
 import Icons from '@/utils/Icons'
 import useLanguage from '@/utils/useLanguage'
@@ -10,53 +10,80 @@ interface VideoPlayerProps {
 }
 
 const VideoPlayer: React.FC<VideoPlayerProps> = ({ data }) => {
-  const [isModalOpen, setIsModalOpen] = useState(false)
+  const [isPlaying, setIsPlaying] = useState(true)
+  const [showControls, setShowControls] = useState(false)
   const videoRef = useRef<HTMLVideoElement>(null)
   const language = useLanguage()
   const dataTranslation = data.translations.find((i) => i.languages_code === language)
 
-  const handlePlay = () => {
-    setIsModalOpen(true)
-  }
-
-  const handleCloseModal = () => {
-    setIsModalOpen(false)
-    if (videoRef.current) {
-      videoRef.current.pause()
-      videoRef.current.currentTime = 0
-    }
-  }
-
   useEffect(() => {
-    if (isModalOpen && videoRef.current) {
+    if (videoRef.current) {
       videoRef.current.play()
     }
-  }, [isModalOpen])
+  }, [])
+
+  const togglePlayPause = () => {
+    if (videoRef.current) {
+      if (isPlaying) {
+        videoRef.current.pause()
+      } else {
+        videoRef.current.play()
+      }
+      setIsPlaying(!isPlaying)
+    }
+  }
+
+  const handleMouseEnter = () => {
+    setShowControls(true)
+  }
+
+  const handleMouseLeave = () => {
+    setShowControls(false)
+  }
 
   return (
-    <div className='relative max-w-full'>
-      {/* Thumbnail and overlay content */}
-      <div className='relative'>
-        <div
-          className='relative h-10 w-full cursor-pointer md:h-[700px]'
-          onClick={handlePlay}
-        >
-          <Image
-            src={'https://ingria.fly.dev/assets/' + data.thumbnail}
-            alt='thumbnail'
-            className='w-full'
-            layout='fill'
-            objectFit='cover'
-          />
-          <div className='absolute inset-0 flex items-center justify-center bg-black opacity-50'>
-            <button className='rounded-full bg-slate-500 p-2 md:p-4'>
-              <Play
-                className='size-4 md:size-6'
-                color='white'
-                fill='white'
-              />
-            </button>
-          </div>
+    <div
+      className='relative max-w-full'
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+    >
+      {/* Video Background */}
+      <video
+        ref={videoRef}
+        className='absolute inset-0 z-0 h-full w-full object-cover'
+        src={'https://ingria.fly.dev/assets/' + data.video}
+        autoPlay
+        loop
+        muted
+        playsInline
+      />
+
+      {/* Content Overlay */}
+      <div className='relative z-10'>
+        <div className='relative h-10 w-full cursor-pointer md:h-[700px]'>
+          {/* Play/Pause Button */}
+          {showControls && (
+            <div className='absolute inset-0 flex items-center justify-center bg-black bg-opacity-50'>
+              <button
+                className='rounded-full bg-slate-500 p-2 md:p-4'
+                onClick={togglePlayPause}
+              >
+                {isPlaying ? (
+                  <Pause
+                    className='size-4 md:size-6'
+                    color='white'
+                  />
+                ) : (
+                  <Play
+                    className='size-4 md:size-6'
+                    color='white'
+                  />
+                )}
+              </button>
+            </div>
+          )}
+
+          {/* Video Details */}
           <div className='absolute left-[5%] top-5 w-[38%] text-white md:left-[15%] md:top-[40%] md:w-1/4'>
             <div className='box-content'>
               <div className='mb-5 text-start text-h3-mobile font-bold md:text-h3-desktop'>
@@ -83,33 +110,6 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({ data }) => {
           </div>
         </div>
       </div>
-
-      {/* Modal for video playback */}
-      {isModalOpen && (
-        <div className='fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-75'>
-          <div className='relative w-full max-w-4xl'>
-            <button
-              className='absolute right-4 top-4 text-2xl text-white'
-              onClick={handleCloseModal}
-            >
-              &times;
-            </button>
-            <video
-              ref={videoRef}
-              className='w-full'
-              loop
-              muted
-              playsInline
-              controls
-            >
-              <source
-                src={'https://ingria.fly.dev/assets/' + data.video}
-                type='video/mp4'
-              />
-            </video>
-          </div>
-        </div>
-      )}
     </div>
   )
 }

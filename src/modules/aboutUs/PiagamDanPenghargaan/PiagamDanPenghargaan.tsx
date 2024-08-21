@@ -1,11 +1,10 @@
+import Image from 'next/image'
 import React from 'react'
 
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel'
 import Blank from '@/layouts/Blank'
 import getAssets from '@/utils/getAssets'
-import VerticalCarousel from '@/components/Vertical Carousel'
 import useLanguage from '@/utils/useLanguage'
-import Image from 'next/image'
-import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel'
 
 interface PiagamDanPenghargaanTranslations {
   id: number
@@ -26,33 +25,64 @@ interface PiagamDanPenghargaanProps {
 
 const PiagamDanPenghargaan: React.FC<PiagamDanPenghargaanProps> = ({ dataPiagam }) => {
   const language = useLanguage()
-  // console.log('ini data Piagam', dataPiagam)
   return (
     <Blank title='Piagam Penghargaan'>
-      <div className='h-screen w-full bg-primary-900'>
-        <Carousel
-          opts={{
-            align: 'start',
-          }}
-          orientation='vertical'
-          className='w-full max-w-xs'
-        >
+      <div className='bg-primary-900'>
+        <Carousel orientation='vertical'>
           <CarouselContent>
+            {/* {dataNewMahakam.map((d) => {
+            const dataTranslation = d.translations.find((i) => i.languages_code === language)
+            return (
+              <CarouselItem key={d.id}>
+                <div className='relative h-[300px] w-full md:h-[700px]'>
+                  <Image
+                    src={String(getAssets(d.image))}
+                    layout='fill'
+                    alt='image'
+                  />
+                  <div className='absolute inset-0 bg-black opacity-50' />
+                  <div className='absolute flex size-full flex-col items-center justify-between py-6 text-white'>
+                    <div className='text-center'>
+                      <h5 className='text-h5-mobile font-semibold md:text-h5-desktop'>{dataTranslation?.title}</h5>
+                      <p className='mt-4 text-medium-mobile font-bold md:text-medium-desktop'>
+                        {dataTranslation?.subTitle}{' '}
+                        <span className='ml-4'>
+                          <Link href={d.path}>View more</Link>
+                        </span>
+                      </p>
+                    </div>
+                    <div>
+                      <button onClick={toggleModal}>
+                        <Menu color='white' />
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </CarouselItem>
+            )
+          })} */}
             {dataPiagam.map((data) => {
               const dataTranslation = data.translations.find((i) => i.languages_code === language)
               return (
                 <CarouselItem
                   key={data.id}
-                  className='basis-full'
+                  className='h-fit'
                 >
                   <h3>{dataTranslation?.title}</h3>
                   <p>{dataTranslation?.caption}</p>
+                  <div className='relative size-10'>
+                    <Image
+                      src={String(getAssets(data.image))}
+                      layout='fill'
+                      alt=''
+                    />
+                  </div>
                 </CarouselItem>
               )
             })}
           </CarouselContent>
-          <CarouselPrevious />
-          <CarouselNext />
+          <CarouselPrevious className='left-6' />
+          <CarouselNext className='right-6' />
         </Carousel>
       </div>
     </Blank>

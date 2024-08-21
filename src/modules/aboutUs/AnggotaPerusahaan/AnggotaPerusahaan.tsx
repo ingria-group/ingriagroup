@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import CardProfile from '@/components/CardProfile'
 import { Separator } from '@/components/ui/separator'
@@ -25,15 +25,20 @@ const AnggotaPerusahaan: React.FC<AnggotaPerusahaanProps> = ({ anggotaPerusahaan
   const dataTransalationsKomite = dewanKomiteData.translations.find((i) => i.languages_code === language)
   const firstData = dataTransalationsAnggota[0]?.data[0]
 
-  const [clickProfile, setClickProfile] = useState<AnggotaPerusahaanSubData>({
-    id: firstData?.id || 0,
-    name: firstData?.name || '',
-    riwayat: firstData?.riwayat || [{ pendidikan: '', jabatan: '', afiliasi: '' }],
-    role: firstData?.role || '',
-  })
+  const [clickProfile, setClickProfile] = useState<AnggotaPerusahaanSubData | null>(null)
+
+  useEffect(() => {
+    if (firstData) {
+      setClickProfile(firstData)
+    }
+  }, [firstData])
 
   const handleClickProfile = (data: AnggotaPerusahaanSubData) => {
     setClickProfile(data)
+  }
+
+  if (!clickProfile) {
+    return null // \loading state
   }
 
   return (
@@ -43,10 +48,10 @@ const AnggotaPerusahaan: React.FC<AnggotaPerusahaanProps> = ({ anggotaPerusahaan
         <div className='grid grid-cols-1 gap-4 sm:grid-cols-2'>
           <div className='my-7 block sm:hidden'>
             <CardProfile
-              name={clickProfile.name}
-              riwayat={clickProfile.riwayat}
-              role={clickProfile.role}
-              id={clickProfile.id}
+              name={clickProfile?.name}
+              riwayat={clickProfile?.riwayat}
+              role={clickProfile?.role}
+              id={clickProfile?.id}
             />
           </div>
           <div className='grid grid-flow-row gap-7'>
@@ -80,7 +85,6 @@ const AnggotaPerusahaan: React.FC<AnggotaPerusahaanProps> = ({ anggotaPerusahaan
                 </div>
               </div>
             ))}
-            {/* {dataDewan.map((i) => ( */}
             <div
               className='text-grey-800'
               key={dataTransalationsKomite?.id}
@@ -106,7 +110,6 @@ const AnggotaPerusahaan: React.FC<AnggotaPerusahaanProps> = ({ anggotaPerusahaan
                 ))}
               </div>
             </div>
-            {/* ))} */}
           </div>
           <div className='hidden sm:block'>
             <CardProfile
