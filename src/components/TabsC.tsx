@@ -40,15 +40,18 @@ const TabsC: React.FC<TabsCProps> = ({
       onValueChange={handleChange}
     >
       <TabsList className={cn(classNameTabList)}>
-        {tabsTrigger?.map((tab) => (
-          <TabsTrigger
-            key={tab.title}
-            value={tab?.title}
-            className={cn('capitalize', classNameTrigger)}
-          >
-            {tab.title}
-          </TabsTrigger>
-        ))}
+        {tabsTrigger?.map((tab) => {
+          console.log('ini tab title di comp', tab.title)
+          return (
+            <TabsTrigger
+              key={tab.title}
+              value={tab?.title}
+              className={cn('capitalize', classNameTrigger)}
+            >
+              {tab.title}
+            </TabsTrigger>
+          )
+        })}
       </TabsList>
 
       {tabsContent?.map((content, index) => (
