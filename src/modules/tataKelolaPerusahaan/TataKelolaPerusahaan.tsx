@@ -42,6 +42,8 @@ const TataKelolaPerusahaan: React.FC<TataKelolaProps> = ({ tataKelola }) => {
   return (
     <Blank title='Tata Kelola Perusahaan'>
       <div className='container mx-auto'>
+        <h4 className='mb-7 text-h4-desktop font-semibold'>{dataTranslations.title}</h4>
+        <p className='mb-7'>{dataTranslations.description}</p>
         <Tabs
           defaultValue={dataTranslations?.tabs[0]?.title || ''}
           className='w-full'
@@ -61,7 +63,7 @@ const TataKelolaPerusahaan: React.FC<TataKelolaProps> = ({ tataKelola }) => {
           {dataTranslations?.tabs.map((datas) => (
             <TabsContent
               key={datas.id}
-              className='w-full bg-primary-900'
+              className='my-6 w-full bg-primary-900'
               value={datas.title}
             >
               <div className='grid grid-cols-1 p-4 md:grid-cols-4 md:p-9 md:py-8'>
