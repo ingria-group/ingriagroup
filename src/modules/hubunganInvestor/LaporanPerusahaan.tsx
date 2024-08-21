@@ -70,6 +70,7 @@ const IkhtisarKeuangan: React.FC<IkhtisarKeuanganProps> = ({ data }) => {
         </Button>
       </div>
       <Tabs
+        defaultValue={dataIkhtisar.data[0].value}
         className='my-6 w-full'
         onValueChange={() => setActiveTab}
       >
@@ -121,24 +122,6 @@ const IkhtisarKeuangan: React.FC<IkhtisarKeuanganProps> = ({ data }) => {
           )
         })}
       </Tabs>
-      {/* <TabsC
-        className='my-6'
-        classNameTrigger='sm:text-body-desktop-large'
-        classNameContent='mt-5'
-        onChange={setActiveTab}
-        defaultValue={dataIkhtisar.data[0].translations.find((d) => d.languages_code === language)?.title}
-        tabsTrigger={dataIkhtisar?.data}
-        tabsContent={dataIkhtisar.data.map((data) => {
-          return (
-            <>
-              <TableC
-                caption={data.value}
-                data={dataFirst}
-              />
-            </>
-          )
-        })}
-      /> */}
     </div>
   )
 }
