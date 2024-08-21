@@ -39,12 +39,6 @@ const TataKelolaPerusahaan: React.FC<TataKelolaProps> = ({ tataKelola }) => {
   if (!dataTranslations || !dataTranslations.tabs || dataTranslations.tabs.length === 0) {
     return <div>Loading...</div>
   }
-
-  console.log('ini dataTranslations', dataTranslations)
-  console.log('ini activeTab', activeTab)
-  console.log('ini activeSub', activeSub)
-  console.log('ini tempData', tempData)
-
   return (
     <Blank title='Tata Kelola Perusahaan'>
       <div className='container mx-auto'>
