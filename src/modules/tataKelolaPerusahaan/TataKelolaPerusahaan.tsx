@@ -39,6 +39,8 @@ const TataKelolaPerusahaan: React.FC<TataKelolaProps> = ({ tataKelola }) => {
   if (!dataTranslations || !dataTranslations.tabs || dataTranslations.tabs.length === 0) {
     return <div>Loading...</div>
   }
+
+  console.log(tempData?.htmlDescription)
   return (
     <Blank title='Tata Kelola Perusahaan'>
       <div className='container mx-auto'>
@@ -90,7 +92,10 @@ const TataKelolaPerusahaan: React.FC<TataKelolaProps> = ({ tataKelola }) => {
                   {tempData && (
                     <>
                       <div className='mb-5 text-h6-desktop'>{tempData.title}</div>
-                      <div className='text-body-desktop-regular font-normal'>{tempData.description}</div>
+                      <div
+                        className='text-body-desktop-regular font-normal'
+                        dangerouslySetInnerHTML={{ __html: tempData.htmlDescription }}
+                      />
                     </>
                   )}
                 </div>
