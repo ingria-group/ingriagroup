@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react'
-import TabsC from '@/components/TabsC'
+
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { TataKelolaContent, TataKelolaType } from '@/interface/TataKelolaPeusahaanType'
 import Blank from '@/layouts/Blank'
 import useLanguage from '@/utils/useLanguage'
-import { Tabs, TabsTrigger } from '@/components/ui/tabs'
-import { TabsContent, TabsList } from '@radix-ui/react-tabs'
 
 interface TataKelolaProps {
   tataKelola: TataKelolaType
@@ -39,9 +38,12 @@ const TataKelolaPerusahaan: React.FC<TataKelolaProps> = ({ tataKelola }) => {
   if (!dataTranslations || !dataTranslations.tabs || dataTranslations.tabs.length === 0) {
     return <div>Loading...</div>
   }
+
   return (
     <Blank title='Tata Kelola Perusahaan'>
       <div className='container mx-auto'>
+        <h4 className='mb-7 text-h4-desktop font-semibold'>{dataTranslations.title}</h4>
+        <p className='mb-7'>{dataTranslations.description}</p>
         <Tabs
           defaultValue={dataTranslations?.tabs[0]?.title || ''}
           className='w-full'
@@ -61,7 +63,7 @@ const TataKelolaPerusahaan: React.FC<TataKelolaProps> = ({ tataKelola }) => {
           {dataTranslations?.tabs.map((datas) => (
             <TabsContent
               key={datas.id}
-              className='w-full bg-primary-900'
+              className='my-6 w-full bg-primary-900'
               value={datas.title}
             >
               <div className='grid grid-cols-1 p-4 md:grid-cols-4 md:p-9 md:py-8'>
@@ -88,7 +90,10 @@ const TataKelolaPerusahaan: React.FC<TataKelolaProps> = ({ tataKelola }) => {
                   {tempData && (
                     <>
                       <div className='mb-5 text-h6-desktop'>{tempData.title}</div>
-                      <div className='text-body-desktop-regular font-normal'>{tempData.description}</div>
+                      <div
+                        className='text-body-desktop-regular font-normal'
+                        dangerouslySetInnerHTML={{ __html: tempData.htmlDescription }}
+                      />
                     </>
                   )}
                 </div>

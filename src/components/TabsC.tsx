@@ -41,7 +41,6 @@ const TabsC: React.FC<TabsCProps> = ({
     >
       <TabsList className={cn(classNameTabList)}>
         {tabsTrigger?.map((tab) => {
-          console.log('ini tab title di comp', tab.title)
           return (
             <TabsTrigger
               key={tab.title}

@@ -14,7 +14,7 @@ import YouTrustedReal, { YouTrustedRealType } from './YouTrustedReal'
 export interface HomeProps {
   findPerfectData: DataFindType
   dataVideo: DataVideoType
-  dataNewArticles: NewsArticlesType
+  dataNewArticles: NewsArticlesType[]
   dataOurBusiness: OurBusinessType
   dataYouTrustedReal: YouTrustedRealType
   dataNewMahakam: NewMahakamGrandeType[]

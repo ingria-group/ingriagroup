@@ -60,7 +60,7 @@ const BidangUsahaId: React.FC<BidangUsahaIdProps> = ({ bidangUsaha }) => {
                   {dataTranslation?.description}
                 </div>
                 <div>
-                  <Link href={selectData.path}>
+                  <Link href={selectData.webLink}>
                     <Button
                       variant='primary'
                       size='sm'
@@ -80,7 +80,7 @@ const BidangUsahaId: React.FC<BidangUsahaIdProps> = ({ bidangUsaha }) => {
               <div className='relative size-full sm:col-span-2'>
                 <div className='hidden sm:block'>
                   <Image
-                    src={String(getAssets(selectData?.image))}
+                    src={String(getAssets(selectData?.image)) || 'https://placehold.co/600x400/EEE/31343C'}
                     alt='image'
                     layout='fill'
                     className='sm:object-contain'
@@ -88,7 +88,7 @@ const BidangUsahaId: React.FC<BidangUsahaIdProps> = ({ bidangUsaha }) => {
                 </div>
                 <div className='block sm:hidden'>
                   <Image
-                    src={String(getAssets(selectData?.image))}
+                    src={String(getAssets(selectData?.image)) || 'https://placehold.co/600x400/EEE/31343C'}
                     alt='image'
                     layout='fixed'
                     width={200}
@@ -104,7 +104,7 @@ const BidangUsahaId: React.FC<BidangUsahaIdProps> = ({ bidangUsaha }) => {
             <div className='col-span-3'>
               <h6 className='mb-5 text-h6-desktop font-bold text-grey-800'> Fasilitas</h6>
               <div className='grid grid-cols-4 gap-3'>
-                {dataTranslation?.fasilitas.map((i) => (
+                {dataTranslation?.fasilitas?.map((i) => (
                   <div
                     className='box-content bg-grey-200 px-4 py-5'
                     key={i.id}
@@ -120,7 +120,7 @@ const BidangUsahaId: React.FC<BidangUsahaIdProps> = ({ bidangUsaha }) => {
             <div className='col-span-2'>
               <h6 className='mb-5 text-h6-desktop font-bold text-grey-800'> Kawasan Srategis</h6>
               <div className='flex flex-col gap-2'>
-                {dataTranslation?.kawasan.map((i) => (
+                {dataTranslation?.kawasan?.map((i) => (
                   <div
                     className='box-content w-full bg-grey-200 px-4 py-5'
                     key={i.id}
@@ -145,7 +145,7 @@ const BidangUsahaId: React.FC<BidangUsahaIdProps> = ({ bidangUsaha }) => {
               >
                 <div>
                   <Image
-                    src={String(getAssets(i.image))}
+                    src={'https://ingria.fly.dev/assets/' + i?.image || 'https://placehold.co/600x400/EEE/31343C'}
                     alt='apartement'
                     layout='fixed'
                     width={276}

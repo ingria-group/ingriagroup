@@ -61,7 +61,7 @@ const FindThePerfectHome: React.FC<FindThePerfectHomeProps> = ({ findPerfectData
             width={1200}
             height={700}
             alt='gambar'
-            className='object-contain'
+            className='object-contain transition-opacity duration-500 hover:opacity-100'
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
           />

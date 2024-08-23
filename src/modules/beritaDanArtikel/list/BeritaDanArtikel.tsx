@@ -1,6 +1,6 @@
 import Image from 'next/image'
 import { useRouter } from 'next/router'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { BeritaDanArtikelType } from '@/interface/BeritaDanArtikelType'
@@ -16,11 +16,17 @@ const BeritaDanArtikel: React.FC<BeritaDanArtikelProps> = ({ beritaArtikel }) =>
   const dataBerita: BeritaDanArtikelType[] = beritaArtikel
   const router = useRouter()
   const language = useLanguage()
+  const [intialTabs, setIntialTabs] = useState(null)
   const dataTranslation = beritaArtikel.map((i) => i.translations.find((d) => d.languages_code === language))
 
   const handleItemClick = (path: string, id: any) => {
     router.push(`/berita-dan-artikel/${path}/${id}`)
   }
+
+  if (!dataTranslation) {
+    return <div>Loading...</div>
+  }
+
   return (
     <Blank title='Berita Dan Artikel'>
       <div className='container mx-auto px-4'>

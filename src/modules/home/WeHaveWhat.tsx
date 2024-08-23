@@ -6,7 +6,7 @@ export interface DataVideoType {
   id: number
   thumbnail: string
   video: string
-  content: { id: number; icon: string; title: string; value: string }[]
+  content: { id: number; icon: string; title: string; value: string; bg_color: string; text_color: string }[]
   translations: { id: number; data_video_id: number; languages_code: string; title: string; description: string }[]
 }
 

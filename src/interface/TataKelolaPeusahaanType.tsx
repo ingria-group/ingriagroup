@@ -21,6 +21,7 @@ export interface TataKelolaContent {
   id: number
   title: string
   description: string
+  htmlDescription: string
 }
 
 export interface TataKelolaTabs {

@@ -20,7 +20,7 @@ export const config = { runtime: 'experimental-edge' }
 export const getServerSideProps: GetServerSideProps<{
   findPerfectData: ApiResponse<DataFindType>
   dataVideo: ApiResponse<DataVideoType>
-  dataNewArticles: ApiResponse<NewsArticlesType>
+  dataNewArticles: ApiResponse<NewsArticlesType[]>
   dataOurBusiness: ApiResponse<OurBusinessType>
   dataYouTrustedReal: ApiResponse<YouTrustedRealType>
   dataNewMahakam: ApiResponse<NewMahakamGrandeType[]>
@@ -29,7 +29,7 @@ export const getServerSideProps: GetServerSideProps<{
   const urls = [
     baseUrl + 'mainhero?fields[]=*,translations.*',
     baseUrl + 'data_video?&fields[]=*,translations.*',
-    baseUrl + 'new_articles?fields[]=*,translations.*',
+    baseUrl + 'new_articles?fields[]=*,translations.*&fields[]=*,translations.data_berita.*',
     baseUrl + 'our_business?fields[]=*,translations.*&fields[]=*,logo.*',
     baseUrl + 'real_estate?fields[]=*,translations.*',
     baseUrl + 'new_mahakam?fields[]=*,translations.*',

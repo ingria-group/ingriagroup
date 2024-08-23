@@ -24,9 +24,6 @@ const AccordionTemp: React.FC<AccordionTempProps> = ({ title, content, id, place
     })
   }
 
-  // // Log content for debugging
-  // console.log(`Accordion Item ${id} Content:`, content)
-
   return (
     <AccordionItem
       value={String(id)}
