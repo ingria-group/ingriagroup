@@ -11,7 +11,12 @@ export interface NewsArticlesTranslations {
   languages_code: string
   button_title: string
   title: string
-  data_berita: { id: number; title: string; content: { id: number; title: string; htmlContent: string }[] }
+  data_berita: {
+    id: number
+    title: string
+    path: string
+    content: { id: number; title: string; htmlContent: string }[]
+  }[]
   item_new_articles: { id: string; title: string; description: string; path: string }[]
 }
 
@@ -47,7 +52,7 @@ const NewsArticles: React.FC<NewsArticlesProps> = ({ dataNewArticles }) => {
             </Link>
           </Button>
         </div>
-        {dataTranslation?.item_new_articles.map((i) => (
+        {/* {dataTranslation?.item_new_articles.map((i) => (
           <Link
             href={i.path}
             key={i.id}
@@ -55,6 +60,27 @@ const NewsArticles: React.FC<NewsArticlesProps> = ({ dataNewArticles }) => {
             <div className='grid cursor-pointer grid-flow-row'>
               <div className='mb-5 line-clamp-3 text-h4-mobile font-semibold md:text-h4-desktop'>{i.title}</div>
               <div className='text-body-mobile md:text-body-desktop mb-5 line-clamp-3'>{i.description}</div>
+              <Button
+                variant='tertiary'
+                size='lg'
+                className='justify-start p-0'
+              >
+                Learn More
+              </Button>
+            </div>
+          </Link>
+        ))} */}
+        {dataTranslation?.data_berita.map((i) => (
+          <Link
+            href={i.path || '/'}
+            key={i.id}
+          >
+            <div className='grid cursor-pointer grid-flow-row'>
+              <div className='mb-5 line-clamp-3 text-h4-mobile font-semibold md:text-h4-desktop'>{i.title}</div>
+              <div
+                className='text-body-mobile md:text-body-desktop mb-5 line-clamp-3'
+                dangerouslySetInnerHTML={{ __html: i.content[0].htmlContent }}
+              />
               <Button
                 variant='tertiary'
                 size='lg'
