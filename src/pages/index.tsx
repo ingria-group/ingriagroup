@@ -20,7 +20,7 @@ export const config = { runtime: 'experimental-edge' }
 export const getServerSideProps: GetServerSideProps<{
   findPerfectData: ApiResponse<DataFindType>
   dataVideo: ApiResponse<DataVideoType>
-  dataNewArticles: ApiResponse<NewsArticlesType>
+  dataNewArticles: ApiResponse<NewsArticlesType[]>
   dataOurBusiness: ApiResponse<OurBusinessType>
   dataYouTrustedReal: ApiResponse<YouTrustedRealType>
   dataNewMahakam: ApiResponse<NewMahakamGrandeType[]>
