@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react'
-import TabsC from '@/components/TabsC'
+
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { TataKelolaContent, TataKelolaType } from '@/interface/TataKelolaPeusahaanType'
 import Blank from '@/layouts/Blank'
 import useLanguage from '@/utils/useLanguage'
-import { Tabs, TabsTrigger } from '@/components/ui/tabs'
-import { TabsContent, TabsList } from '@radix-ui/react-tabs'
 
 interface TataKelolaProps {
   tataKelola: TataKelolaType
@@ -40,7 +39,6 @@ const TataKelolaPerusahaan: React.FC<TataKelolaProps> = ({ tataKelola }) => {
     return <div>Loading...</div>
   }
 
-  console.log(tempData?.htmlDescription)
   return (
     <Blank title='Tata Kelola Perusahaan'>
       <div className='container mx-auto'>

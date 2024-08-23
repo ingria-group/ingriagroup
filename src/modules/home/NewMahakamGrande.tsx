@@ -3,16 +3,8 @@ import Image from 'next/image'
 import Link from 'next/link'
 import React, { useState } from 'react'
 
-import {
-  Carousel,
-  CarouselApi,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from '@/components/ui/carousel'
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel'
 import { BidangUsahaType } from '@/interface/BidangUsahaType'
-import convertRange from '@/utils/convertRange'
 import getAssets from '@/utils/getAssets'
 import useLanguage from '@/utils/useLanguage'
 
@@ -42,20 +34,6 @@ const NewMahakamGrande: React.FC<NewMahakamGrandeProps> = ({ dataNewMahakam, dat
   const toggleModal = () => {
     setIsModalOpen(!isModalOpen)
   }
-
-  // const [api, setApi] = React.useState<CarouselApi>()
-
-  // React.useEffect(() => {
-  //   if (!api) {
-  //     return
-  //   }
-
-  //   api.on('scroll', (e) => {
-  //     // Do something on select.
-  //     console.log('ini setelah convert', convertRange(e.scrollProgress(), 0, 1, 0, 360))
-  //     console.log(e.scrollProgress())
-  //   })
-  // }, [api])
 
   return (
     <>
@@ -115,7 +93,7 @@ const NewMahakamGrande: React.FC<NewMahakamGrandeProps> = ({ dataNewMahakam, dat
                   key={i.id}
                   className='mx-auto px-7 py-4 hover:bg-primary-800'
                 >
-                  <Link href={i.path}>{i.title}</Link>
+                  <Link href={'/bidang-usaha/' + i.path}>{i.title}</Link>
                 </li>
               ))}
 

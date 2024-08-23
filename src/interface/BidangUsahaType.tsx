@@ -47,6 +47,7 @@ export interface BidangUsahaType {
   background: string
   image: string
   path: string
+  webLink: string
   title: string
   translations: BidangUsahaTranslations[]
 }

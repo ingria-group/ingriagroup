@@ -27,7 +27,6 @@ const BeritaDanArtikel: React.FC<BeritaDanArtikelProps> = ({ beritaArtikel }) =>
     return <div>Loading...</div>
   }
 
-  console.log(dataTranslation)
   return (
     <Blank title='Berita Dan Artikel'>
       <div className='container mx-auto px-4'>

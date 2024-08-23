@@ -57,20 +57,13 @@ const FindThePerfectHome: React.FC<FindThePerfectHomeProps> = ({ findPerfectData
       <div className='grid md:col-span-5 md:mt-6 md:grid-rows-4'>
         <div className='row-span-2 md:row-span-5 md:row-start-1'>
           <Image
-            src={String(getAssets(findPerfectData?.hoverImage))}
+            src={String(getAssets(isHovered ? findPerfectData?.hoverImage : findPerfectData?.activeImage))}
             width={1200}
             height={700}
             alt='gambar'
-            className='object-contain opacity-0 transition-opacity duration-500 hover:block hover:opacity-100'
-            onMouseLeave={() => setIsHovered(false)}
-          />
-          <Image
-            src={String(getAssets(findPerfectData?.activeImage))}
-            width={1200}
-            height={700}
-            alt='gambar'
-            className='object-contain opacity-100 transition-opacity duration-500 hover:hidden hover:opacity-0'
+            className='object-contain transition-opacity duration-500 hover:opacity-100'
             onMouseEnter={() => setIsHovered(true)}
+            onMouseLeave={() => setIsHovered(false)}
           />
         </div>
       </div>

@@ -29,7 +29,7 @@ export const getServerSideProps: GetServerSideProps<{
   const urls = [
     baseUrl + 'mainhero?fields[]=*,translations.*',
     baseUrl + 'data_video?&fields[]=*,translations.*',
-    baseUrl + 'new_articles?fields[]=*,translations.*',
+    baseUrl + 'new_articles?fields[]=*,translations.*&fields[]=*,translations.data_berita.*',
     baseUrl + 'our_business?fields[]=*,translations.*&fields[]=*,logo.*',
     baseUrl + 'real_estate?fields[]=*,translations.*',
     baseUrl + 'new_mahakam?fields[]=*,translations.*',

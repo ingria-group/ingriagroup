@@ -95,13 +95,14 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({ data }) => {
           <div className='absolute right-[5%] top-5 grid grid-rows-2 gap-2 md:right-[15%] md:top-[30%] md:gap-6'>
             {data.content.map((i) => (
               <div
-                className='box-content rounded-xl bg-primary-600 p-2 text-white md:p-[24px]'
+                className='box-content rounded-xl p-2 md:p-[24px]'
+                style={{ backgroundColor: i.bg_color, color: i.text_color }}
                 key={i.id}
               >
                 <Icons
                   name={i.icon}
                   size={20}
-                  color='white'
+                  color={i.text_color}
                 />
                 <div className='text-h3-mobile font-extrabold md:text-h3-mobile'>{i.value}</div>
                 <p className='text-h6-mobile font-semibold md:text-h6-desktop'>{i.title}</p>

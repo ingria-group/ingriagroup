@@ -11,6 +11,7 @@ export interface NewsArticlesTranslations {
   languages_code: string
   button_title: string
   title: string
+  data_berita: { id: number; title: string; content: { id: number; title: string; htmlContent: string }[] }
   item_new_articles: { id: string; title: string; description: string; path: string }[]
 }
 
@@ -21,12 +22,12 @@ export interface NewsArticlesType {
 }
 
 interface NewsArticlesProps {
-  dataNewArticles: NewsArticlesType
+  dataNewArticles: NewsArticlesType[]
 }
 
 const NewsArticles: React.FC<NewsArticlesProps> = ({ dataNewArticles }) => {
   const language = useLanguage()
-  const dataTranslation = dataNewArticles.translations.find((i) => i.languages_code === language)
+  const dataTranslation = dataNewArticles[0].translations.find((i) => i.languages_code === language)
   return (
     <div className='bg-primary-100 py-9'>
       <div className='container mx-auto grid grid-cols-1 gap-7 px-4 md:grid-cols-4 md:px-0'>
@@ -36,7 +37,7 @@ const NewsArticles: React.FC<NewsArticlesProps> = ({ dataNewArticles }) => {
             size='lg'
             variant='secondary'
           >
-            <Link href={dataNewArticles.path}>
+            <Link href={dataNewArticles[0].path}>
               <div className='text-button-mobile font-semibold md:text-button-desktop'>
                 <div className='flex flex-row gap-3'>
                   {dataTranslation?.button_title}
