@@ -9,7 +9,7 @@ module.exports = {
   swcMinify: true,
 
   images: {
-    domains: ['ingria.fly.dev'],
+    domains: ['ingria.fly.dev', 'placehold.co'],
   },
 
   distDir: process.env.NODE_ENV === 'production' ? '.next' : '.next-dev',

@@ -40,7 +40,6 @@ const PiagamDanPenghargaan: React.FC<PiagamDanPenghargaanProps> = ({ dataPiagam 
       setRotateDegree(convertRange(e.scrollProgress(), 0, 1, 0, maxDegree))
     })
   }, [api])
-  console.log(dataPiagam[0].image)
   return (
     <Blank title='Piagam Penghargaan'>
       <div className='h-screen bg-primary-900'>
