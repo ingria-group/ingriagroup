@@ -53,7 +53,7 @@ const PiagamDanPenghargaan: React.FC<PiagamDanPenghargaanProps> = ({ dataPiagam 
           setApi={setApi}
         >
           <div
-            className='absolute -left-1/4 top-8 size-[800px] rounded-full border-r-4'
+            className='absolute -left-1/4 top-8 size-[800px] rounded-full'
             style={{
               transform: `rotate(${rotateDegree}deg)`,
               backgroundImage: `url(${String(getAssets(dataPiagam[0].image))})`,
