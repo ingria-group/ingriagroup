@@ -40,6 +40,7 @@ const PiagamDanPenghargaan: React.FC<PiagamDanPenghargaanProps> = ({ dataPiagam 
       setRotateDegree(convertRange(e.scrollProgress(), 0, 1, 0, maxDegree))
     })
   }, [api])
+  console.log(dataPiagam[0].image)
   return (
     <Blank title='Piagam Penghargaan'>
       <div className='h-screen bg-primary-900'>
@@ -51,6 +52,13 @@ const PiagamDanPenghargaan: React.FC<PiagamDanPenghargaanProps> = ({ dataPiagam 
           className='py-10'
           setApi={setApi}
         >
+          <div
+            className='absolute -left-1/4 top-8 size-[800px] rounded-full border-r-4'
+            style={{
+              transform: `rotate(${rotateDegree}deg)`,
+              backgroundImage: `url(${String(getAssets(dataPiagam[0].image))})`,
+            }}
+          />
           <CarouselContent className='h-[500px]'>
             {dataPiagam.map((data) => {
               const dataTranslation = data.translations.find((i) => i.languages_code === language)
@@ -76,10 +84,7 @@ const PiagamDanPenghargaan: React.FC<PiagamDanPenghargaanProps> = ({ dataPiagam 
               )
             })}
           </CarouselContent>
-          <div
-            className='absolute -left-1/4 top-8 size-[800px] rounded-full border-r-4 border-r-red-300 bg-white'
-            style={{ transform: `rotate(${rotateDegree}deg)` }}
-          />
+
           {/* <CarouselPrevious />
           <CarouselNext /> */}
         </Carousel>
