@@ -24,19 +24,15 @@ const BidangUsahaId: React.FC<BidangUsahaIdProps> = ({ bidangUsaha }) => {
 
   useEffect(() => {
     if (path) {
-      const selected = bidangUsaha.find((bidang) => bidang.path === path)
-      const data = selected?.translations.find((i) => i.languages_code === language)
+      const selected = bidangUsaha.find((bidang) => bidang.path === path) || bidangUsaha[0]
+      const data = selected?.translations.find((i) => i.languages_code === language) || selected?.translations[0]
       setDataTranslation(data)
       setSelectData(selected)
     }
-  }, [path, language])
+  }, [path, language, bidangUsaha])
 
   const handleBidangUsahaClick = (bidang: any) => {
     router.push(`/bidang-usaha/${bidang.path}`)
-  }
-
-  if (!selectData) {
-    return <div>Loading...</div>
   }
 
   return (
@@ -46,7 +42,9 @@ const BidangUsahaId: React.FC<BidangUsahaIdProps> = ({ bidangUsaha }) => {
           <div
             className='relative mb-4 box-content  px-4 py-5 sm:mb-8 sm:px-9 sm:py-8'
             style={{
-              backgroundImage: `url(${String(getAssets(selectData.background))})`,
+              backgroundImage: `url(${
+                String(getAssets(selectData?.background)) || 'https://placehold.co/600x400/EEE/31343C'
+              })`,
               backgroundSize: 'cover',
               backgroundRepeat: 'no-repeat',
               backgroundPosition: 'center',
@@ -55,12 +53,14 @@ const BidangUsahaId: React.FC<BidangUsahaIdProps> = ({ bidangUsaha }) => {
             <div className='absolute inset-0 bg-white opacity-80' />
             <div className='relative grid grid-flow-row gap-3 sm:gap-9 md:grid-cols-5'>
               <div className='col-span-3'>
-                <div className='mb-7 text-h2-mobile font-bold sm:text-h2-desktop'>{selectData?.title}</div>
+                <div className='mb-7 text-h2-mobile font-bold sm:text-h2-desktop'>
+                  {selectData?.title || 'Default Title'}
+                </div>
                 <div className='mb-6 text-body-mobile-regular sm:text-body-desktop-regular'>
-                  {dataTranslation?.description}
+                  {dataTranslation?.description || 'Default description text.'}
                 </div>
                 <div>
-                  <Link href={selectData.webLink}>
+                  <Link href={selectData?.webLink || '#'}>
                     <Button
                       variant='primary'
                       size='sm'
@@ -96,15 +96,14 @@ const BidangUsahaId: React.FC<BidangUsahaIdProps> = ({ bidangUsaha }) => {
                     className='sm:object-contain'
                   />
                 </div>
-                {/* <div className='absolute inset-0 bg-black opacity-20' /> */}
               </div>
             </div>
           </div>
           <div className='mb-8 grid grid-flow-row gap-7 sm:grid-cols-5'>
             <div className='col-span-3'>
-              <h6 className='mb-5 text-h6-desktop font-bold text-grey-800'> Fasilitas</h6>
+              <h6 className='mb-5 text-h6-desktop font-bold text-grey-800'>Fasilitas</h6>
               <div className='grid grid-cols-4 gap-3'>
-                {dataTranslation?.fasilitas?.map((i) => (
+                {(dataTranslation?.fasilitas || []).map((i) => (
                   <div
                     className='box-content bg-grey-200 px-4 py-5'
                     key={i.id}
@@ -118,9 +117,9 @@ const BidangUsahaId: React.FC<BidangUsahaIdProps> = ({ bidangUsaha }) => {
               </div>
             </div>
             <div className='col-span-2'>
-              <h6 className='mb-5 text-h6-desktop font-bold text-grey-800'> Kawasan Srategis</h6>
+              <h6 className='mb-5 text-h6-desktop font-bold text-grey-800'>Kawasan Srategis</h6>
               <div className='flex flex-col gap-2'>
-                {dataTranslation?.kawasan?.map((i) => (
+                {(dataTranslation?.kawasan || []).map((i) => (
                   <div
                     className='box-content w-full bg-grey-200 px-4 py-5'
                     key={i.id}
@@ -132,7 +131,7 @@ const BidangUsahaId: React.FC<BidangUsahaIdProps> = ({ bidangUsaha }) => {
               </div>
             </div>
           </div>
-          <p className='text-body-desktop-regular'>{dataTranslation?.footer}</p>
+          <p className='text-body-desktop-regular'>{dataTranslation?.footer || 'Default footer text.'}</p>
         </div>
         <div className='py-8'>
           <div className='mb-7 text-center text-h4-desktop font-semibold text-grey-800'>Lihat Juga</div>
@@ -152,7 +151,7 @@ const BidangUsahaId: React.FC<BidangUsahaIdProps> = ({ bidangUsaha }) => {
                     height={196}
                   />
                 </div>
-                <div className='text-center'>{i.title}</div>
+                <div className='text-center'>{i.title || 'Default title'}</div>
               </div>
             ))}
           </CarouselC>
