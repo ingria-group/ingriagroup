@@ -41,7 +41,7 @@ const TataKelolaPerusahaan: React.FC<TataKelolaProps> = ({ tataKelola }) => {
     <Blank title='Tata Kelola Perusahaan'>
       <div className='container mx-auto'>
         <h4 className='mb-7 text-h4-desktop font-semibold'>{dataTranslations.title || 'Default Title'}</h4>
-        <p className='mb-7'>{dataTranslations.description || 'Default description'}</p>
+        <p className='mb-7'>{dataTranslations.description || ''}</p>
         <Tabs
           defaultValue={defaultTabTitle}
           className='w-full'
@@ -87,10 +87,10 @@ const TataKelolaPerusahaan: React.FC<TataKelolaProps> = ({ tataKelola }) => {
                 <div className='col-span-3 mt-6 text-white sm:mt-0'>
                   {tempData && (
                     <>
-                      <div className='mb-5 text-h6-desktop'>{tempData.title || 'Default Title'}</div>
+                      {/* <div className='mb-5 text-h6-desktop'>{tempData.title || 'Default Title'}</div> */}
                       <div
                         className='text-body-desktop-regular font-normal'
-                        dangerouslySetInnerHTML={{ __html: tempData.htmlDescription || 'Default Description' }}
+                        dangerouslySetInnerHTML={{ __html: tempData.htmlDescription || '' }}
                       />
                       {tempData.file && (
                         <div className='box-content rounded-2xl pb-6 pt-7 shadow-lg sm:px-6'>
