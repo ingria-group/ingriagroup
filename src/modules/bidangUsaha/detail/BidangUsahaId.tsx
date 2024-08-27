@@ -53,11 +53,9 @@ const BidangUsahaId: React.FC<BidangUsahaIdProps> = ({ bidangUsaha }) => {
             <div className='absolute inset-0 bg-white opacity-80' />
             <div className='relative grid grid-flow-row gap-3 sm:gap-9 md:grid-cols-5'>
               <div className='col-span-3'>
-                <div className='mb-7 text-h2-mobile font-bold sm:text-h2-desktop'>
-                  {selectData?.title || 'Default Title'}
-                </div>
+                <div className='mb-7 text-h2-mobile font-bold sm:text-h2-desktop'>{selectData?.title || ''}</div>
                 <div className='mb-6 text-body-mobile-regular sm:text-body-desktop-regular'>
-                  {dataTranslation?.description || 'Default description text.'}
+                  {dataTranslation?.description || ''}
                 </div>
                 <div>
                   <Link href={selectData?.webLink || '#'}>
@@ -151,7 +149,7 @@ const BidangUsahaId: React.FC<BidangUsahaIdProps> = ({ bidangUsaha }) => {
                     height={196}
                   />
                 </div>
-                <div className='text-center'>{i.title || 'Default title'}</div>
+                <div className='text-center'>{i.title || ' '}</div>
               </div>
             ))}
           </CarouselC>
