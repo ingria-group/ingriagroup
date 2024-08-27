@@ -3,9 +3,9 @@ import React, { useEffect, useState } from 'react'
 
 import { Carousel, CarouselApi, CarouselContent, CarouselItem } from '@/components/ui/carousel'
 import Blank from '@/layouts/Blank'
+import convertRange from '@/utils/convertRange'
 import getAssets from '@/utils/getAssets'
 import useLanguage from '@/utils/useLanguage'
-import convertRange from '@/utils/convertRange'
 
 interface PiagamDanPenghargaanTranslations {
   id: number

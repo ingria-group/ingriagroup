@@ -22,6 +22,7 @@ export interface TataKelolaContent {
   title: string
   description: string
   htmlDescription: string
+  file?: { key: string; collection: string }
 }
 
 export interface TataKelolaTabs {
