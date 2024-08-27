@@ -87,7 +87,7 @@ const TataKelolaPerusahaan: React.FC<TataKelolaProps> = ({ tataKelola }) => {
                 <div className='col-span-3 mt-6 text-white sm:mt-0'>
                   {tempData && (
                     <>
-                      <div className='mb-5 text-h6-desktop'>{tempData.title || 'Default Title'}</div>
+                      {/* <div className='mb-5 text-h6-desktop'>{tempData.title || 'Default Title'}</div> */}
                       <div
                         className='text-body-desktop-regular font-normal'
                         dangerouslySetInnerHTML={{ __html: tempData.htmlDescription || '' }}
