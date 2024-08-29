@@ -29,6 +29,7 @@ const PiagamDanPenghargaan: React.FC<PiagamDanPenghargaanProps> = ({ dataPiagam 
   const [api, setApi] = useState<CarouselApi>()
   const [rotateDegree, setRotateDegree] = useState(0)
   const maxDegree = -((dataPiagam.length - 1) * 90)
+  const [selectedImage, setSelectedImage] = useState(0)
 
   useEffect(() => {
     if (!api) {
@@ -38,11 +39,19 @@ const PiagamDanPenghargaan: React.FC<PiagamDanPenghargaanProps> = ({ dataPiagam 
     api.on('scroll', (e) => {
       // Do something on select.
       setRotateDegree(convertRange(e.scrollProgress(), 0, 1, 0, maxDegree))
+      setSelectedImage(e.selectedScrollSnap())
     })
   }, [api])
   return (
     <Blank title='Piagam Penghargaan'>
       <div className='h-screen bg-primary-900'>
+        <div
+          className='absolute -left-1/4 top-[20%] size-[800px] rounded-full'
+          style={{
+            transform: `rotate(${rotateDegree}deg)`,
+            backgroundImage: `url(${String(getAssets(dataPiagam[selectedImage].image))})`,
+          }}
+        />
         <Carousel
           opts={{
             align: 'start',
@@ -51,13 +60,6 @@ const PiagamDanPenghargaan: React.FC<PiagamDanPenghargaanProps> = ({ dataPiagam 
           className='py-10'
           setApi={setApi}
         >
-          <div
-            className='absolute -left-1/4 top-8 size-[800px] rounded-full'
-            style={{
-              transform: `rotate(${rotateDegree}deg)`,
-              backgroundImage: `url(${String(getAssets(dataPiagam[0].image))})`,
-            }}
-          />
           <CarouselContent className='h-[500px]'>
             {dataPiagam.map((data) => {
               const dataTranslation = data.translations.find((i) => i.languages_code === language)
