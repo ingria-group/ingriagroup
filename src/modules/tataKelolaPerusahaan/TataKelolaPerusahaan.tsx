@@ -89,8 +89,8 @@ const TataKelolaPerusahaan: React.FC<TataKelolaProps> = ({ tataKelola }) => {
                     <>
                       {/* <div className='mb-5 text-h6-desktop'>{tempData.title || 'Default Title'}</div> */}
                       <div
-                        className='text-body-desktop-regular font-normal'
-                        dangerouslySetInnerHTML={{ __html: tempData.htmlDescription || '' }}
+                        className='prose prose-lg text-body-desktop-regular font-normal !text-white marker:text-white prose-strong:text-white'
+                        dangerouslySetInnerHTML={{ __html: tempData?.htmlDescription || '' }}
                       />
                       {tempData.file && (
                         <div className='box-content rounded-2xl pb-6 pt-7 shadow-lg sm:px-6'>
