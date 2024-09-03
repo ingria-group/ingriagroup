@@ -37,7 +37,6 @@ const PiagamDanPenghargaan: React.FC<PiagamDanPenghargaanProps> = ({ dataPiagam 
     }
 
     api.on('scroll', (e) => {
-      // Do something on select.
       setRotateDegree(convertRange(e.scrollProgress(), 0, 1, 0, maxDegree))
       setSelectedImage(e.selectedScrollSnap())
     })
@@ -46,7 +45,7 @@ const PiagamDanPenghargaan: React.FC<PiagamDanPenghargaanProps> = ({ dataPiagam 
     <Blank title='Piagam Penghargaan'>
       <div className='h-screen bg-primary-900'>
         <div
-          className='absolute -left-1/4 top-[20%] size-[800px] rounded-full'
+          className='absolute -left-1/4 top-[20%] size-10 rounded-full sm:size-[800px]'
           style={{
             transform: `rotate(${rotateDegree}deg)`,
             backgroundImage: `url(${String(getAssets(dataPiagam[selectedImage].image))})`,
@@ -68,8 +67,8 @@ const PiagamDanPenghargaan: React.FC<PiagamDanPenghargaanProps> = ({ dataPiagam 
                   key={data.id}
                   className='mx-auto'
                 >
-                  <div className='flex w-fit flex-row gap-8'>
-                    <div className='relative h-[400px] w-[300px]'>
+                  <div className='flex w-fit flex-row gap-2 sm:gap-8'>
+                    <div className='relative h-[150px] w-[300px] sm:h-[400px] sm:w-[300px]'>
                       <Image
                         src={String(getAssets(data.image))}
                         layout='fill'
@@ -85,9 +84,6 @@ const PiagamDanPenghargaan: React.FC<PiagamDanPenghargaanProps> = ({ dataPiagam 
               )
             })}
           </CarouselContent>
-
-          {/* <CarouselPrevious />
-          <CarouselNext /> */}
         </Carousel>
       </div>
     </Blank>
