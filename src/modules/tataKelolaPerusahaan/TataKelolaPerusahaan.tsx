@@ -65,7 +65,7 @@ const TataKelolaPerusahaan: React.FC<TataKelolaProps> = ({ tataKelola }) => {
               value={datas.title}
             >
               <div className='grid grid-cols-1 p-4 md:grid-cols-4 md:p-9 md:py-8'>
-                <div className='flex flex-col gap-6'>
+                <div className='flex flex-col gap-6 md:mr-6'>
                   {datas?.content.map((v) => (
                     <div
                       className='cursor-pointer text-white'
